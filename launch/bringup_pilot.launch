@@ -1,0 +1,35 @@
+<launch>
+
+	<arg name="remote_addr" default="10.24.4.102" />
+    <arg name="remote_port_topic" default="17001" />
+    <arg name="local_port_topic" default="17001" />
+    <arg name="remote_port_service" default="18001" />
+    <arg name="local_port_service" default="18001" />
+
+	<!-- The UDP sender node -->
+	<node name="topics_from_pilot" pkg="nimbro_topic_transport" type="udp_sender" output="screen">
+
+		<!-- The destination host name or IP address -->
+		<param name="destination_addr" value="$(arg remote_addr)" />
+		<param name="destination_port" value="$(arg remote_port_topic)" />
+
+		<!-- Load the list of topics from a YAML file -->
+		<rosparam command="load" file="$(find hhcm_nimbro_network)/config/topics_from_pilot.yaml" />
+	</node>
+
+    <node name="topic_receiver" pkg="nimbro_topic_transport" type="udp_receiver" output="screen">
+		<!-- The port to receive packets on -->
+		<param name="port" value="$(arg local_port_topic)" />
+	</node>
+
+	<node name="service_client" pkg="nimbro_service_transport" type="service_client" output="screen">
+		<param name="server" value="$(arg remote_addr)" />
+		<param name="port" value="$(arg remote_port_service)" />
+        <rosparam command="load" file="$(find hhcm_nimbro_network)/config/services_robot.yaml" />
+	</node>
+
+    <node name="cam_receiver" pkg="nimbro_cam_transport" type="cam_receiver" output="screen">
+        <remap from="~encoded" to ="/cam_sender/encoded"/>
+	</node>
+
+</launch>

@@ -1,0 +1,43 @@
+services:
+
+  - name: /xbotcore/get_plugin_list
+    type: xbot_msgs/GetPluginList
+
+  - name: /xbotcore/set_filter_profile_safe
+    type: std_srvs/Trigger
+  - name: /xbotcore/set_filter_profile_medium
+    type: std_srvs/Trigger
+  - name: /xbotcore/set_filter_profile_fast
+    type: std_srvs/Trigger
+  - name: /xbotcore/enable_joint_filter
+    type: std_srvs/SetBool
+  - name: /xbotcore/joint_master/set_control_mask
+    type: xbot_msgs/SetControlMask
+
+  - name: /xbotcore/ros_control/switch
+    type: std_srvs/SetBool
+  - name: /xbotcore/ros_control/state
+    type: xbot_msgs/PluginStatus
+  - name: /xbotcore/ros_control/abort
+    type: std_srvs/Trigger
+
+  - name: /xbotcore/homing/switch
+    type: std_srvs/SetBool
+  - name: /xbotcore/homing/state
+    type: xbot_msgs/PluginStatus
+  - name: /xbotcore/homing/abort
+    type: std_srvs/Trigger
+
+  - name: /xbotcore/ec_ros/switch
+    type: std_srvs/SetBool
+  - name: /xbotcore/ec_ros/state
+    type: xbot_msgs/PluginStatus
+  - name: /xbotcore/ec_ros/abort
+    type: std_srvs/Trigger
+
+  - name: /xbotcore/ros_io/switch
+    type: std_srvs/SetBool
+  - name: /xbotcore/ros_io/state
+    type: xbot_msgs/PluginStatus
+  - name: /xbotcore/ros_io/abort
+    type: std_srvs/Trigger
